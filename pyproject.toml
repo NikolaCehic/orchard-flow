@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "orchardflow"
+version = "0.1.0"
+description = "Local multi-agent orchestration project with placeholder-safe providers."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "OrchardFlow" }]
+dependencies = []
+
+[project.scripts]
+orchardflow-demo = "orchardflow.demo:main"
+
+[project.optional-dependencies]
+langgraph = ["langgraph>=0.2"]
+review = ["streamlit>=1.35"]
+test = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
