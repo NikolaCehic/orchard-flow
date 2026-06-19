@@ -18,8 +18,15 @@ The WU-102 stacked branch adds:
 - Redis and Celery integration boundaries backed by a local in-process queue.
 - Supervisor planning-time long-term memory lookup.
 
+The WU-103 stacked branch adds:
+
+- Escalation triggers for low confidence, repeated failure, sensitive operations, and low quality.
+- A local review queue with Notify, Approve Action, Approve Plan, and Take Over levels.
+- Review payloads containing context, proposed action, reasoning, and relevant memories.
+- A Streamlit-facing review app module that is testable without running a server.
+
 Run the focused check with:
 
 ```bash
-python3 -m pytest tests/test_agents.py tests/test_memory_queue.py
+python3 -m pytest tests/test_agents.py tests/test_memory_queue.py tests/test_review.py
 ```
