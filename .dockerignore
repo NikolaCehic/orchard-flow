@@ -1,0 +1,13 @@
+.git
+.workflow
+.pytest_cache
+__pycache__
+*.pyc
+.env
+.env.*
+.venv
+venv
+node_modules
+dist
+build
+.DS_Store
