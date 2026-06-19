@@ -25,8 +25,15 @@ The WU-103 stacked branch adds:
 - Review payloads containing context, proposed action, reasoning, and relevant memories.
 - A Streamlit-facing review app module that is testable without running a server.
 
+The WU-104 stacked branch adds:
+
+- OpenTelemetry-compatible local trace records for planning, tool calls, memory retrievals, escalations, and nodes.
+- Per-record latency, cost, error status, trace ids, and span ids.
+- Trace explorer export.
+- Replay with modified inputs and divergence reporting.
+
 Run the focused check with:
 
 ```bash
-python3 -m pytest tests/test_agents.py tests/test_memory_queue.py tests/test_review.py
+python3 -m pytest tests/test_agents.py tests/test_memory_queue.py tests/test_review.py tests/test_observability.py
 ```
