@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: .
+    command: python -m orchardflow.demo
+    environment:
+      ORCHARDFLOW_MODE: local-demo
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-placeholder}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-placeholder}
+      REDIS_URL: redis://redis:6379/0
+      POSTGRES_DSN: postgresql://${POSTGRES_USER:-orchardflow}:${POSTGRES_PASSWORD:-placeholder}@postgres:5432/${POSTGRES_DB:-orchardflow}
+      CHROMA_HOST: chroma
+      CHROMA_PORT: "8000"
+    depends_on:
+      - redis
+      - postgres
+      - chroma
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-orchardflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-placeholder}
+      POSTGRES_DB: ${POSTGRES_DB:-orchardflow}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    environment:
+      IS_PERSISTENT: "TRUE"
+      PERSIST_DIRECTORY: /chroma/chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+
+volumes:
+  redis-data:
+  postgres-data:
+  chroma-data:
